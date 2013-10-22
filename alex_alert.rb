@@ -28,3 +28,5 @@ end
 
 alex = AlexAlert.new(name: 'Alex', twitter_handle: 'myabc')
 guille = AlexAlert.new(name: 'Guille', twitter_handle: 'wordgraphy')
+jojo = AlexAlert.new(name: 'jojo', twitter_handle: 'eljojo')
+
