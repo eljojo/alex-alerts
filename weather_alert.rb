@@ -1,5 +1,6 @@
 require 'json'
 require 'open-uri'
+require_relative './google_image_search.rb'
 
 class WeatherAlert
   API_KEY = '897b0ecd61d57e6e'
@@ -31,6 +32,7 @@ class WeatherAlert
   attr_accessor :city, :type, :color, :name, :desc
 
   def initialize(default_attributes = {})
+    @image_search = GoogleImageSearch.new
     default_attributes.each do |name, value|
       send("#{name}=", value) if respond_to?("#{name}=")
     end
@@ -40,5 +42,10 @@ class WeatherAlert
     return '' unless desc
     short_desc = desc.split(".").first
     "#{short_desc}." if short_desc and short_desc.length > 0
+  end
+
+  def pictures(search_query = "weather #{name} chaos")
+    @images ||= @image_search.search(search_query)
+    @images.map { |image| image[:url] }
   end
 end
