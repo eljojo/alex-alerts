@@ -46,10 +46,10 @@ private
 
   def tweet(message, opts = {})
     if picture = opts.delete(:picture) then
-      Twitter.update_with_media(message, picture)
+      Twitter.update_with_media(message, picture) rescue nil
       $log.info "tweeting with picture: #{message}"
     else
-      Twitter.update(message, opts)
+      Twitter.update(message, opts) rescue nil
       $log.info "tweeting without picture: #{message}"
     end
   end
