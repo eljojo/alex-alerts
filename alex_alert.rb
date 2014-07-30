@@ -14,10 +14,11 @@ class AlexAlert
 
   def warn_alex
     alerts = WeatherAlert.all(city: @city)
-    return unless alert = alerts.sample
+    return unless alerts.any?
 
-    message = "There's a #{alert.color} #{alert.name} alert right now! #{alert.short_desc}"
     @accounts.each do |username, real_name|
+      alert = alerts.sample
+      message = "There's a #{alert.color} #{alert.name} alert right now! #{alert.short_desc}"
       tweet_message = "@#{username}: #{real_name}! #{message}"
       file = download(alert.pictures.sample)
       tweet(tweet_message, picture: file)
@@ -57,8 +58,10 @@ end
 accounts = {
   myabc: 'Alex',
   wordgraphy: 'Guille',
-  eljojo: 'jojo'
+  dg_tweety: 'Dajana',
+  malweene: 'Malwine'
+  # eljojo: 'jojo'
 }
 
-alex_alert = AlexAlert.new(accounts)
+alex_alert = AlexAlert.new(accounts, city: 'Berlin,Germany')
 alex_alert.warn_alex

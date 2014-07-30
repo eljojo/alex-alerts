@@ -20,7 +20,7 @@ class WeatherAlert
       result["alerts"].map do |alert|
         self.new(
           type: alert["type"],
-          name: alert["wtype_meteoalarm_name"],
+          name: alert["wtype_meteoalarm_name"] || alert["description"],
           color: alert["level_meteoalarm_name"],
           desc: alert["level_meteoalarm_description"],
           city: city
