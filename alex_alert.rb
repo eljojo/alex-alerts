@@ -34,9 +34,10 @@ private
     return if url.nil? or url.length == 0
     file = Tempfile.new("weather-image")
     begin
-      open(picture_url, 'rb')  { |read_file| file.write(read_file.read) }
+      open(url, 'rb')  { |read_file| file.write(read_file.read) }
       file.rewind
-    rescue
+    rescue => e
+      puts "error while downloading picture: #{e.message}"
       file.close
       file.unlink
       file = nil
